@@ -1,5 +1,5 @@
 #--------imports--------#
-"""time is used to time our performance, numpy for arrays and random generation"""
+"""time is used to time our performance, numpy for arrays and random generation, numba for speed"""
 from time import perf_counter
 import numpy as np
 from numba import njit
