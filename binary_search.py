@@ -1,5 +1,5 @@
 #--------imports--------#
-"""time is used to time our performance, numpy for arrays and random generation"""
+"""time is used to time our performance, numpy for arrays and random generation, numba for speed"""
 from time import perf_counter
 import numpy as np
 from numba import njit
@@ -18,7 +18,7 @@ def create_array(element_count, upper_bound):
 
 @njit
 def binary_search(a, search):
-    """performs a simple binary search, returns index"""
+    """performs a simple binary search, returns index and amount of runs"""
     low = 0
     high = a.size - 1
     count = 0
