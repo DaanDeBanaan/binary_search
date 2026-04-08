@@ -1,14 +1,11 @@
-#--------imports--------#
+# --------imports--------#
 """time is used to time our performance, numpy for arrays and random generation, numba for speed"""
 from time import perf_counter
 import numpy as np
 from numba import njit
 
-#--------variables--------#
-rng = np.random.default_rng()
 
-#--------functions--------#
-
+# --------functions--------#
 def create_array(element_count, upper_bound):
     """creates a random array"""
     print("Creating array...")
@@ -30,7 +27,7 @@ def binary_search(a, search):
         if low > high:
             print("Element not found in list!")
             return None, count
-        mid = (low+high) // 2
+        mid = (low + high) // 2
         if a[mid] < search:
             low = mid + 1
         elif a[mid] > search:
@@ -38,10 +35,11 @@ def binary_search(a, search):
         else:
             return mid, count
 
-#--------program--------#
-if __name__ == "__main__": #just good practice
-    binary_search(create_array(10, 10), 5) #compiles the functions
-    while True: #simple loop to get the user input for the array length
+
+# --------program--------#
+if __name__ == "__main__":  # just good practice
+    binary_search(create_array(10, 10), 5)  # compiles the functions
+    while True:  # simple loop to get the user input for the array length
         try:
             while True:
                 element_count = int(input("How many elements (strictly positive) do you want in your list?: "))
@@ -53,7 +51,7 @@ if __name__ == "__main__": #just good practice
         except ValueError:
             print("Input an integer!")
 
-    while True: #same as last loop, but for the biggest possible element
+    while True:  # same as last loop, but for the biggest possible element
         try:
             while True:
                 print("What is the upper range for the element size?")
@@ -68,12 +66,13 @@ if __name__ == "__main__": #just good practice
             print("Input an integer!")
 
     start = perf_counter()
-    a = create_array(element_count, upper_bound) #returns the array and its creation time
+    a = create_array(element_count, upper_bound)  # returns the array and its creation time
     end = perf_counter()
     array_time = end - start
 
     print(f"Creating array took {array_time} seconds")
-    random_element = a[rng.integers(a.size)] #it's overkill to use numpy, but it's one less import
+    rng = np.random.default_rng()
+    random_element = a[rng.integers(a.size)]  # it's overkill to use numpy, but it's one less import
     start = perf_counter()
     search_data = binary_search(a, random_element)
     end = perf_counter()
