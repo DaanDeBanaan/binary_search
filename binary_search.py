@@ -4,11 +4,8 @@ from time import perf_counter
 import numpy as np
 from numba import njit
 
-#--------variables--------#
-rng = np.random.default_rng()
 
 #--------functions--------#
-
 def create_array(element_count, upper_bound):
     """creates a random array"""
     print("Creating array...")
@@ -73,6 +70,7 @@ if __name__ == "__main__": #just good practice
     array_time = end - start
 
     print(f"Creating array took {array_time} seconds")
+    rng = np.random.default_rng()
     random_element = a[rng.integers(a.size)] #it's overkill to use numpy, but it's one less import
     start = perf_counter()
     search_data = binary_search(a, random_element)
