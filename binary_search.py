@@ -37,7 +37,7 @@ def binary_search(a, search):
 
 #--------program--------#
 if __name__ == "__main__": #just good practice
-    binary_search(create_array(10, 10), 5) #compiles the functions
+    binary_search(create_array(5, 5), 3) #compiles the functions
     while True: #simple loop to get the user input for the array length
         try:
             while True:
@@ -64,21 +64,32 @@ if __name__ == "__main__": #just good practice
         except ValueError:
             print("Input an integer!")
 
-    start = perf_counter()
-    a = create_array(element_count, upper_bound) #returns the array and its creation time
-    end = perf_counter()
-    array_time = end - start
+    while True: #you get how it works by now
+        try:
+            while True:
+                run_count = int(input("Input the amount of times the algorithm needs to be run: "))
+                if run_count > 0:
+                    break
+                else:
+                    print("Number was not greater than 0!")
+            break
+        except ValueError:
+            print("Input an integer!")
 
-    print(f"Creating array took {array_time} seconds")
+    a = create_array(element_count, upper_bound) #creates the array
     rng = np.random.default_rng()
     random_element = a[rng.integers(a.size)] #it's overkill to use numpy, but it's one less import
-    start = perf_counter()
-    search_data = binary_search(a, random_element)
-    end = perf_counter()
-    search_time = end - start
+
+    search_time = 0
+    for i in range(run_count): #couldn't use timeit because it didn't work
+        start = perf_counter()
+        search_data = binary_search(a, random_element)
+        end = perf_counter()
+        search_time += end - start
+
     if search_data[0] is None:
         print(f"The element {random_element} is not in the list.")
     else:
         print(f"The element {random_element} is at index {search_data[0]}")
-    print(f"It took {search_time} seconds and {search_data[1]} passes.")
-    print(f"Searching was {int(array_time // search_time)} times faster than creating the array.")
+    print(f"It took {search_time} seconds to run the program {run_count} times ({search_time/run_count} seconds per run).")
+    print(f"It took {search_data[1]} passes to find the element {random_element}.")
